@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jclouds</groupId>
+    <artifactId>jclouds-project</artifactId>
+    <version>1.5.0-beta.10</version>
+    <relativePath>../../project/pom.xml</relativePath>
+  </parent>
+  <groupId>org.jclouds.api</groupId>
+  <artifactId>vblob</artifactId>
+  <version>1.5.0-SNAPSHOT</version>
+  <name>jclouds vBlob api</name>
+  <description>Simple Storage Service (S3) implementation based on vBlob</description>
+  <packaging>bundle</packaging>
+
+  <properties>
+    <jclouds.version>1.5.0-beta.10</jclouds.version>
+    <test.vblob.endpoint>http://localhost:9981/</test.vblob.endpoint>
+    <test.vblob.api-version>2006-03-01</test.vblob.api-version>
+    <test.vblob.build-version></test.vblob.build-version>
+    <test.vblob.identity>MvndHwA4e6dgaGV23L94</test.vblob.identity>
+    <test.vblob.credential>A50GS9tj2DLXRln4rf1K+A/CSjmAbBGw0H5yul6s</test.vblob.credential>
+    <jclouds.osgi.export>org.jclouds.vblob*;version="${project.version}"</jclouds.osgi.export>
+    <jclouds.osgi.import>org.jclouds*;version="${project.version}",*</jclouds.osgi.import>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jclouds.api</groupId>
+      <artifactId>s3</artifactId>
+      <version>${jclouds.version}</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.jclouds.api</groupId>
+      <artifactId>s3</artifactId>
+      <version>${jclouds.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jclouds</groupId>
+      <artifactId>jclouds-core</artifactId>
+      <version>${jclouds.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jclouds</groupId>
+      <artifactId>jclouds-blobstore</artifactId>
+      <version>${jclouds.version}</version>
+      <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jclouds.driver</groupId>
+      <artifactId>jclouds-log4j</artifactId>
+      <version>${jclouds.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.16</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <profiles>
+    <profile>
+      <id>live</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>integration</id>
+                <phase>integration-test</phase>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+                <configuration>
+                  <systemPropertyVariables>
+                    <jclouds.blobstore.httpstream.url>${jclouds.blobstore.httpstream.url}</jclouds.blobstore.httpstream.url>
+                    <jclouds.blobstore.httpstream.md5>${jclouds.blobstore.httpstream.md5}</jclouds.blobstore.httpstream.md5>
+                    <test.vblob.endpoint>${test.vblob.endpoint}</test.vblob.endpoint>
+                    <test.vblob.api-version>${test.vblob.api-version}</test.vblob.api-version>
+                    <test.vblob.build-version>${test.vblob.build-version}</test.vblob.build-version>
+                    <test.vblob.identity>${test.vblob.identity}</test.vblob.identity>
+                    <test.vblob.credential>${test.vblob.credential}</test.vblob.credential>
+                  </systemPropertyVariables>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>
+
